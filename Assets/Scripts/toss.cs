@@ -5,8 +5,12 @@ using UnityEngine;
 public class toss : MonoBehaviour
 {
     public float timeToToss = 9.5f;
+    public float timeToFire = 1.5f;
     public float tossForce = 15f;
     public float slowMotionScale = 0.7f;
+    public float fireSpreadScale = 1f;
+    public GameObject fire;
+
     private bool thrown = false;
     private Rigidbody rb;
 
@@ -19,9 +23,11 @@ public class toss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeToToss -= Time.deltaTime;
+
         if (!thrown)
         {
-            timeToToss -= Time.deltaTime;
+            
 
             if (timeToToss <= 0)
             {
@@ -34,6 +40,28 @@ public class toss : MonoBehaviour
                 Time.timeScale = slowMotionScale;
 
             }
+        }
+        else
+        {
+            if (!fire.activeInHierarchy)
+            {
+                if (timeToToss <= (0 - timeToFire))
+                {
+                    rb.isKinematic = true;
+                    fire.SetActive(true);
+                
+                }
+            }
+            else
+            {
+                if (timeToToss >= (0 - timeToFire * fireSpreadScale * 2))
+                {
+                    fire.transform.localScale = Vector3.one * (0 - timeToToss) * fireSpreadScale;
+
+                }
+                    
+            }
+            
         }
         
 

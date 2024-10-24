@@ -7,8 +7,10 @@ public class lookAtCig : MonoBehaviour
     public GameObject cig;
     public float zoomMultiplier = 4f;
     public bool startInCar = true;
+    public GameObject rabbit;
     
     private float timeToToss;
+    private float timeToFire;
     private Camera cam;
     private Camera cigCam;
 
@@ -28,16 +30,29 @@ public class lookAtCig : MonoBehaviour
     void Update()
     {
         timeToToss = cig.GetComponent<toss>().timeToToss;
+        timeToFire = cig.GetComponent<toss>().timeToFire;
+
         transform.LookAt(cig.transform);
         
-        if (timeToToss <= 0 && cam.fieldOfView > 20)
+        if (timeToToss <= 0 && timeToToss > (0 - timeToFire) && cam.fieldOfView > 20)
         {
+            
             if (startInCar && cigCam.enabled && !cam.enabled)
             {
                 cigCam.enabled = false;
                 cam.enabled = true;
+                
             }
             cam.fieldOfView -= zoomMultiplier * Time.deltaTime;
         }
+
+        if (timeToToss <= (0 - timeToFire) && cam.fieldOfView < 60)
+        {
+            rabbit.SetActive(true);
+            cam.fieldOfView += zoomMultiplier * Time.deltaTime;
+            //Debug.Log("working: " + (zoomMultiplier * Time.deltaTime));
+        }
+
+        //Debug.Log("Time to toss: " + timeToToss);
     }
 }
