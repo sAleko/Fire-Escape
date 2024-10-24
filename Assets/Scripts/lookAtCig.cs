@@ -65,7 +65,9 @@ public class lookAtCig : MonoBehaviour
                 } 
                 else if (timeToToss < sceneTrigger)
                 {
+                    Time.timeScale = 1f;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
                 }
 
             }
