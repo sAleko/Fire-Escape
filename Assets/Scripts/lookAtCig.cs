@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class lookAtCig : MonoBehaviour
 {
     public GameObject cig;
     public float zoomMultiplier = 4f;
+    public float zoomOutToNextScene = 2f;
     public bool startInCar = true;
     public GameObject rabbit;
     
     private float timeToToss;
     private float timeToFire;
+    private float sceneTrigger = 0f;
     private Camera cam;
     private Camera cigCam;
 
@@ -24,6 +27,8 @@ public class lookAtCig : MonoBehaviour
             cigCam.enabled = false;
             cam.enabled = true;
         }
+
+        rabbit.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,12 +51,28 @@ public class lookAtCig : MonoBehaviour
             cam.fieldOfView -= zoomMultiplier * Time.deltaTime;
         }
 
-        if (timeToToss <= (0 - timeToFire) && cam.fieldOfView < 60)
+        if (timeToToss <= (0 - timeToFire))
         {
-            rabbit.SetActive(true);
-            cam.fieldOfView += zoomMultiplier * Time.deltaTime;
-            //Debug.Log("working: " + (zoomMultiplier * Time.deltaTime));
+            if (cam.fieldOfView < 60)
+            {
+                rabbit.SetActive(true);
+                cam.fieldOfView += zoomMultiplier * Time.deltaTime;
+            } else
+            {
+                if (sceneTrigger == 0)
+                {
+                    sceneTrigger = timeToToss - zoomOutToNextScene;
+                } 
+                else if (timeToToss < sceneTrigger)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+
+            }
+
         }
+
+
 
         //Debug.Log("Time to toss: " + timeToToss);
     }
