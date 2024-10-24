@@ -6,6 +6,7 @@ public class toss : MonoBehaviour
 {
     public float timeToToss = 9.5f;
     public float tossForce = 15f;
+    public float slowMotionScale = 0.7f;
     private bool thrown = false;
     private Rigidbody rb;
 
@@ -29,6 +30,8 @@ public class toss : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddForce(new Vector3 (tossForce, 0, 0), ForceMode.Impulse);
                 transform.parent = null;
+
+                Time.timeScale = slowMotionScale;
 
             }
         }

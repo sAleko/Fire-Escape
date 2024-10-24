@@ -6,6 +6,7 @@ public class lookAtCig : MonoBehaviour
 {
     public GameObject cig;
     public float zoomMultiplier = 4f;
+    public bool startInCar = true;
     
     private float timeToToss;
     private Camera cam;
@@ -15,6 +16,12 @@ public class lookAtCig : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         cigCam = cig.GetComponentInChildren<Camera>();
+
+        if (!startInCar)
+        {
+            cigCam.enabled = false;
+            cam.enabled = true;
+        }
     }
 
     // Update is called once per frame
@@ -25,8 +32,11 @@ public class lookAtCig : MonoBehaviour
         
         if (timeToToss <= 0 && cam.fieldOfView > 20)
         {
-            cigCam.enabled = false;
-            cam.enabled = true;
+            if (startInCar && cigCam.enabled && !cam.enabled)
+            {
+                cigCam.enabled = false;
+                cam.enabled = true;
+            }
             cam.fieldOfView -= zoomMultiplier * Time.deltaTime;
         }
     }
