@@ -64,7 +64,7 @@ public class BasicBehaviour : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log("Timescale: " + Time.timeScale);
+		//Debug.Log("Timescale: " + Time.timeScale);
 
 
 		// Store the input axes.
