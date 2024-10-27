@@ -14,6 +14,9 @@ public class toss : MonoBehaviour
     private bool thrown = false;
     private Rigidbody rb;
 
+    [SerializeField]
+    AudioSource fireSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +35,7 @@ public class toss : MonoBehaviour
             if (timeToToss <= 0)
             {
                 thrown = true;
-                
+
                 rb.isKinematic = false;
                 rb.AddForce(new Vector3 (tossForce, 0, 0), ForceMode.Impulse);
                 transform.parent = null;
@@ -49,7 +52,8 @@ public class toss : MonoBehaviour
                 {
                     rb.isKinematic = true;
                     fire.SetActive(true);
-                
+
+                    fireSFX.Play();
                 }
             }
             else
@@ -67,4 +71,6 @@ public class toss : MonoBehaviour
 
         
     }
+
+
 }
