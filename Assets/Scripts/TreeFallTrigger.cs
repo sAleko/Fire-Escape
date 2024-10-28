@@ -7,6 +7,8 @@ public class TreeFallTrigger : MonoBehaviour
     public Rigidbody treeRb;
     public bool testFall = false;
 
+    public AudioSource treeFallsfx;
+
     // Start is called before the first frame update
     void Start()
     {
