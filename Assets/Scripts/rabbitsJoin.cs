@@ -6,6 +6,7 @@ using UnityEngine;
 public class rabbitsJoin : MonoBehaviour
 {
     public rabbitsJoin player;
+    public GameObject endScreen;
 
     public bool loverStart = false;
 
@@ -16,6 +17,8 @@ public class rabbitsJoin : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        endScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,6 +47,10 @@ public class rabbitsJoin : MonoBehaviour
             anim.Rebind();
             anim.Update(0f);
             anim.enabled = false;
+
+            endScreen.SetActive(true);
         }
+
+        
     }
 }
