@@ -20,7 +20,7 @@ public class TreeFallTrigger : MonoBehaviour
 
    void Update()
     {
-        if (trigger)
+        if (trigger && textComponent != null)
         {
             textComponent.color = new Color(1f, 1f, 0f, textComponent.color.a);
             Color currentColor = textComponent.color;
@@ -31,7 +31,9 @@ public class TreeFallTrigger : MonoBehaviour
     void Start()
     {
         treeRb.isKinematic = !testFall;
-        textComponent.color = new Color(textComponent.color.r, textComponent.color.g, textComponent.color.b, 0);
+        
+        if (textComponent != null)
+            textComponent.color = new Color(textComponent.color.r, textComponent.color.g, textComponent.color.b, 0);
     }
 
     void OnTriggerEnter(Collider other)
