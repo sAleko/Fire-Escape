@@ -24,7 +24,7 @@ public class TreeFallTrigger : MonoBehaviour
         {
             textComponent.color = new Color(1f, 1f, 0f, textComponent.color.a);
             Color currentColor = textComponent.color;
-            currentColor.a = Mathf.Min(currentColor.a + Time.deltaTime, 1f); // Increase alpha until it's fully visible
+            currentColor.a = Mathf.Min(currentColor.a + Time.deltaTime, 1f);
             textComponent.color = currentColor;
         }
     }
