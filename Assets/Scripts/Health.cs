@@ -50,13 +50,22 @@ public class Health : MonoBehaviour
         }
         else
         {
-            Vector3 knockbackForce = (rabbitBody.velocity * -1 * knockback);
+            Vector3 closestPoint = other.ClosestPoint(transform.position);
+            Vector3 pointToPlayer = (transform.position - closestPoint).normalized;
+            // Debug.Log("Closest contact point: " + closestPoint);
+            // Debug.Log("Vector pointing towards rabbit from contact point: " + (transform.position - closestPoint).normalized);
+
+            // Vector3 knockbackForce = (rabbitBody.velocity * -1 * knockback);
+            Vector3 knockbackForce = (pointToPlayer * knockback);
             knockbackForce.y = 0f;
 
             rabbitBody.AddForce(knockbackForce, ForceMode.Impulse);
-            transform.Rotate(new Vector3(0, -180, 0));
+            transform.LookAt(transform.position + pointToPlayer);
         }
 
+        
+
+        
 
     }
 
