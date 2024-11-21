@@ -28,7 +28,7 @@ public class fadeIn : MonoBehaviour
         while (elapsedTime < fadeSeconds)
         {
             fadeScreen.color = new Color(0, 0, 0, 
-                (1f / elapsedTime));
+                (fadeScreen.color.a + (1f / elapsedTime)));
 
             elapsedTime += Time.deltaTime;
             yield return null;
