@@ -5,7 +5,7 @@ using UnityEngine;
 public class FloatingMovement : MonoBehaviour
 {
     public float speed = 1f;
-    public Transform goal;
+    public Vector3 goal;
 
     Rigidbody rb;
 
@@ -13,12 +13,15 @@ public class FloatingMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Vector3 pos = transform.position;
+        pos.x += 500f;
+        goal = pos;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddForce((goal.position - transform.position).normalized * speed);
+        rb.AddForce((goal - transform.position).normalized * speed);
 
     }
 }
