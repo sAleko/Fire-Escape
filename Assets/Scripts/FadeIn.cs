@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class fadeIn : MonoBehaviour
+public class FadeIn : MonoBehaviour
 {
     public Image fadeScreen;
-    public float fadeInSeconds = 1f;
-    public float fadeMultiplier = 2f;
+    public float fadeInSeconds = -1f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,14 +22,14 @@ public class fadeIn : MonoBehaviour
 
     public IEnumerator Fading(float fadeSeconds)
     {
-        float elapsedTime = 0f;
+        float absTime = Mathf.Abs(fadeSeconds);
 
-        while (elapsedTime < fadeSeconds)
+        while (absTime > 0)
         {
             fadeScreen.color = new Color(0, 0, 0, 
-                (fadeScreen.color.a + (1f / elapsedTime)));
+                (fadeScreen.color.a + (Time.unscaledDeltaTime * 1f / fadeSeconds)));
 
-            elapsedTime += Time.deltaTime;
+            absTime -= Time.unscaledDeltaTime;
             yield return null;
         }
     }
