@@ -10,10 +10,9 @@ public class lookAtCig : MonoBehaviour
     public GameObject cig;
     public float zoomMultiplier = 4f;
     public float zoomOutToNextScene = 2f;
-    public float fadeMultiplier = 1f;
+    public float fadeOutTime = 1f;
     public bool startInCar = true;
     public GameObject rabbit;
-    public Image fadeScreen;
     
     private float timeToToss;
     private float timeToFire;
@@ -21,11 +20,13 @@ public class lookAtCig : MonoBehaviour
     private bool nextScene = false;
     private Camera cam;
     private Camera cigCam;
+    private FadeIn fadeIn;
 
     void Start()
     {
         cam = GetComponent<Camera>();
         cigCam = cig.GetComponentInChildren<Camera>();
+        fadeIn = GetComponent<FadeIn>();
 
         if (!startInCar)
         {
@@ -78,20 +79,14 @@ public class lookAtCig : MonoBehaviour
 
         }
 
-        if (nextScene)
-        {
-            fadeScreen.color = new Color(0, 0, 0, (fadeScreen.color.a + (Time.deltaTime * fadeMultiplier)));
-
-        }
-
-
 
         //Debug.Log("Time to toss: " + timeToToss);
     }
 
     IEnumerator FadeOut()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        StartCoroutine(fadeIn.Fading(fadeOutTime));
+        yield return new WaitForSecondsRealtime(fadeOutTime);
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
