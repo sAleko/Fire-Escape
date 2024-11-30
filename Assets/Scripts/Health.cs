@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f;
     public float fireDamage = 15f;
+    public float smokeDamage = 5f;
     public float health;
     public float knockback = 2f;
     public float deathScreenLength = 4f;
@@ -43,6 +44,12 @@ public class Health : MonoBehaviour
 
         health -= fireDamage;
         healthBar.fillAmount = health / maxHealth;
+
+        if (!other.CompareTag("Smoke")) return;
+
+        health -= smokeDamage;
+        healthBar.fillAmount = health / maxHealth;
+        
 
         if (health <= 0)
         {
