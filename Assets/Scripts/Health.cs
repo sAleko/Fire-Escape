@@ -13,6 +13,8 @@ public class Health : MonoBehaviour
     public float health;
     public float knockback = 2f;
     public float deathScreenLength = 4f;
+    public bool beInSmoke;
+    public bool stopDamage;
     public Image healthBar;
     public GameObject deathScreen;
 
@@ -38,6 +40,15 @@ public class Health : MonoBehaviour
         deathScreen.SetActive(false);
     }
 
+    void Update() {
+        if (beInSmoke == true){
+            if (stopDamage == false){
+                stopDamage = true;
+                StartCoroutine(DamageFromSmoke());
+            }
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Fire")) return;
@@ -45,10 +56,12 @@ public class Health : MonoBehaviour
         health -= fireDamage;
         healthBar.fillAmount = health / maxHealth;
 
-        if (!other.CompareTag("Smoke")) return;
-
-        health -= smokeDamage;
-        healthBar.fillAmount = health / maxHealth;
+        if (!other.CompareTag("Smoke")){
+            beInSmoke = true;
+        }
+        else{
+            beInSmoke = false;
+        }
         
 
         if (health <= 0)
@@ -70,10 +83,13 @@ public class Health : MonoBehaviour
             transform.LookAt(transform.position + pointToPlayer);
         }
 
-        
+    }
 
-        
-
+    IEnumerator DamageFromSmoke(){
+        yield return new WaitForSeconds(1);
+        health -= smokeDamage;
+        healthBar.fillAmount = health / maxHealth;
+        stopDamage = false;
     }
 
     IEnumerator Die()
