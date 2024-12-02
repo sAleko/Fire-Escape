@@ -78,7 +78,7 @@ public class ThirdPersonOrbitCamBasic : MonoBehaviour
 		// Test for collision with the environment based on current camera position.
 		Vector3 baseTempPosition = player.position + camYRotation * targetPivotOffset;
 		Vector3 noCollisionOffset = targetCamOffset;
-		while (noCollisionOffset.magnitude >= 0.2f)
+		while (noCollisionOffset.magnitude >= 0.4f)
 		{
 			if (DoubleViewingPosCheck(baseTempPosition + aimRotation * noCollisionOffset))
 				break;

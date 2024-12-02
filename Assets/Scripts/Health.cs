@@ -55,18 +55,13 @@ public class Health : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        beInSmoke = other.CompareTag("Smoke") ? true : beInSmoke;
+
         if (!other.CompareTag("Fire")) return;
 
         health -= fireDamage;
         healthBar.fillAmount = health / maxHealth;
-
-        if (!other.CompareTag("Smoke")){
-            beInSmoke = true;
-        }
-        else{
-            beInSmoke = false;
-        }
-        
+                
 
         if (!dying)
         {
@@ -83,6 +78,11 @@ public class Health : MonoBehaviour
             transform.LookAt(transform.position + pointToPlayer);
         }
 
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        beInSmoke = other.CompareTag("Smoke") ? false : beInSmoke;
     }
 
     IEnumerator Die()
