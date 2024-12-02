@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f;
     public float fireDamage = 15f;
-    public float smokeDamage = 5f;
+    public float smokeDamage = 3f;
     public float health;
     public float knockback = 2f;
     public float deathScreenLength = 4f;
@@ -23,6 +23,7 @@ public class Health : MonoBehaviour
     private BasicBehaviour bb;
     private MoveBehaviour mb;
     private FlyBehaviour fb;
+    private bool dying = false;
 
 
     // Start is called before the first frame update
@@ -42,10 +43,13 @@ public class Health : MonoBehaviour
 
     void Update() {
         if (beInSmoke == true){
-            if (stopDamage == false){
-                stopDamage = true;
-                StartCoroutine(DamageFromSmoke());
-            }
+            health -= Time.deltaTime * smokeDamage;
+            healthBar.fillAmount = health / maxHealth;
+        }
+
+        if (!dying && health <= 0)
+        {
+            StartCoroutine("Die");
         }
     }
 
@@ -64,11 +68,7 @@ public class Health : MonoBehaviour
         }
         
 
-        if (health <= 0)
-        {
-            StartCoroutine("Die");
-        }
-        else
+        if (!dying)
         {
             Vector3 closestPoint = other.ClosestPoint(transform.position);
             Vector3 pointToPlayer = (transform.position - closestPoint).normalized;
@@ -85,15 +85,9 @@ public class Health : MonoBehaviour
 
     }
 
-    IEnumerator DamageFromSmoke(){
-        yield return new WaitForSeconds(1);
-        health -= smokeDamage;
-        healthBar.fillAmount = health / maxHealth;
-        stopDamage = false;
-    }
-
     IEnumerator Die()
     {
+        dying = true;
         healthBar.fillAmount = 0;
         deathScreen.SetActive(true);
 
