@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     private BasicBehaviour bb;
     private MoveBehaviour mb;
     private FlyBehaviour fb;
-    private bool dying = false;
+    public bool dying = false;
 
 
     // Start is called before the first frame update
