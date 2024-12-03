@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
     public bool stopDamage;
     public Image healthBar;
     public GameObject deathScreen;
+    public GameObject rabbitSmoke;
 
     private Rigidbody rabbitBody;
     private Animator rAnim;
@@ -42,6 +43,11 @@ public class Health : MonoBehaviour
     }
 
     void Update() {
+        if (rabbitSmoke != null)
+        {
+            rabbitSmoke.SetActive(beInSmoke);
+        }
+
         if (beInSmoke == true){
             health -= Time.deltaTime * smokeDamage;
             healthBar.fillAmount = health / maxHealth;
