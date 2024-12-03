@@ -55,7 +55,6 @@ public class Health : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        beInSmoke = other.CompareTag("Smoke") ? true : beInSmoke;
 
         if (!other.CompareTag("Fire")) return;
 
@@ -80,9 +79,20 @@ public class Health : MonoBehaviour
 
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Smoke"))
+        {
+            beInSmoke = true;
+        }
+    }
+
     void OnTriggerExit(Collider other)
     {
-        beInSmoke = other.CompareTag("Smoke") ? false : beInSmoke;
+        if (other.CompareTag("Smoke"))
+        {
+            beInSmoke = false;
+        }
     }
 
     IEnumerator Die()

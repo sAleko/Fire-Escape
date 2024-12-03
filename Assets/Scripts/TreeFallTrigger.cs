@@ -30,7 +30,7 @@ public class TreeFallTrigger : MonoBehaviour
     }
     void Start()
     {
-        treeRb.isKinematic = !testFall;
+        if (treeRb != null) treeRb.isKinematic = !testFall;
         
         if (textComponent != null)
             textComponent.color = new Color(textComponent.color.r, textComponent.color.g, textComponent.color.b, 0);
