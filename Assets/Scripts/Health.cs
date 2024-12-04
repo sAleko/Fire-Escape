@@ -79,7 +79,7 @@ public class Health : MonoBehaviour
             Vector3 knockbackForce = (pointToPlayer * knockback);
             knockbackForce.y = 0f;
 
-            rabbitBody.AddForce(knockbackForce, ForceMode.Impulse);
+            rabbitBody?.AddForce(knockbackForce, ForceMode.Impulse);
             transform.LookAt(transform.position + pointToPlayer);
         }
 
