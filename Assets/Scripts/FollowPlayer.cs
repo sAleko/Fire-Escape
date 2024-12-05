@@ -30,7 +30,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerHealth.dying)
+        if (playerHealth != null && playerHealth.dying)
         {
             target = transform.position;
             if (!playerDied)
