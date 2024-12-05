@@ -26,8 +26,10 @@ public class FadeIn : MonoBehaviour
 
         while (absTime > 0)
         {
-            fadeScreen.color = new Color(0, 0, 0, 
-                (fadeScreen.color.a + (Time.unscaledDeltaTime * 1f / fadeSeconds)));
+            fadeScreen.color = new Color(0, 0, 0, Mathf.Clamp(
+                (fadeScreen.color.a + (Time.unscaledDeltaTime * 1f / fadeSeconds)), 0, 1));
+
+            Debug.Log("Fading " + fadeScreen.color.a + " at " + absTime + " out of " + fadeSeconds + "sec");
 
             absTime -= Time.unscaledDeltaTime;
             yield return null;
