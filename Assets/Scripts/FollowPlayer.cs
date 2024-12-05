@@ -65,7 +65,7 @@ public class FollowPlayer : MonoBehaviour
 
         biting = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(4f);
 
         biting = false;
 
